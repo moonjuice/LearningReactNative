@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput
+  TextInput,
+  Image
 } from 'react-native';
 import Forecast from './Forecast';
 
@@ -25,8 +26,13 @@ class WeatherProject extends Component {
   render() {
     return (
       <View style={styles.container}>
+      <Image 
+        source={require('../images/flowers.png')}
+        resizeMode='cover'
+        style={styles.backdrop}>
+        <View style={styles.overlay}>
         <TextInput style={styles.input} onSubmitEditing={this.handleTextChange.bind(this)}/>
-        <Text style={styles.welcome}>
+        <Text>
           You input {this.state.zip}.
         </Text>
         <Forecast
@@ -34,6 +40,8 @@ class WeatherProject extends Component {
           description={this.state.forecast.description}
           temp={this.state.forecast.temp}
         />
+        </View>
+      </Image>
       </View>
     );
   }
@@ -47,14 +55,8 @@ class WeatherProject extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    paddingTop: 30,
+    alignItems: 'center'
   },
   instructions: {
     textAlign: 'center',
@@ -64,7 +66,19 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 20,
     borderWidth: 2,
-    height: 40
+    height: 40,
+    textAlign: 'center'
+  },
+  backdrop: {
+    flex: 1,
+    flexDirection: 'column'
+  },
+  overlay: {
+    paddingTop: 5,
+    backgroundColor: '#FFFFFF',
+    opacity: 0.5,
+    flexDirection: 'column',
+    alignItems: 'center'
   }
 });
 
