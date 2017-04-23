@@ -6,12 +6,20 @@ import {
   View,
   TextInput
 } from 'react-native';
+import Forecast from './Forecast';
 
 class WeatherProject extends Component {
 
   constructor(props) {
       super(props);
-      this.state = {zip: ''};
+      this.state = {
+        zip: '',
+        forecast: {
+          main: 'Clouds',
+          description: 'few clouds',
+          temp: 45.7
+        }
+      };
   }
 
   render() {
@@ -21,6 +29,11 @@ class WeatherProject extends Component {
         <Text style={styles.welcome}>
           You input {this.state.zip}.
         </Text>
+        <Forecast
+          main={this.state.forecast.main}
+          description={this.state.forecast.description}
+          temp={this.state.forecast.temp}
+        />
       </View>
     );
   }
