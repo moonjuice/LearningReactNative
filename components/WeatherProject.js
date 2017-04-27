@@ -16,9 +16,9 @@ class WeatherProject extends Component {
       this.state = {
         zip: '',
         forecast: {
-          main: 'Clouds',
-          description: 'few clouds',
-          temp: 45.7
+          main: '',
+          description: '',
+          temp: ''
         }
       };
   }
@@ -47,8 +47,24 @@ class WeatherProject extends Component {
   }
 
   handleTextChange(event) {
-    console.log(event.nativeEvent.text);
-    this.setState({zip:event.nativeEvent.text});
+    var zip = event.nativeEvent.text;
+    console.log(zip);
+    this.setState({zip: zip});
+    fetch('http://samples.openweathermap.org/data/2.5/weather?q=' + zip + '&appid=b1b15e88fa797225412429c1c50c122a1') //94040 is US
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson);
+        this.setState({
+          forecast: {
+            main: responseJson.weather[0].main,
+            description: responseJson.weather[0].description,
+            temp: responseJson.main.temp
+          }
+        });
+      })
+      .catch((error) => {
+        console.warn(error);
+      });
   }
 }
 
